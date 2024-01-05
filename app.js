@@ -34,7 +34,7 @@ io.on('connection', async (socket) => {
 
   try {
     // Fetch previous messages from the database
-    const previousMessages = await Message.find().sort({ timestamp: 1 }).exec();
+    const previousMessages = await Message.find().sort({ timestamp: 1 }).populate('info','name').exec();
 
     // Send previous messages to the newly connected client
     socket.emit('previous messages', previousMessages);
@@ -47,7 +47,7 @@ io.on('connection', async (socket) => {
     console.log('Received message:', data);
     try {
       // Save the message to MongoDB using async/await
-      const message = new Message({ user: data.user, text: data.message });
+      const message = new Message({info:aval ,user: data.user, text: data.message });
       
       //const message = new Message({ user: userID, text: data.message });  problem when fetching
 
@@ -68,6 +68,7 @@ io.on('connection', async (socket) => {
   });
 
   let userID;
+  let aval;
   socket.on('user save', async (data) => {
 
     try {
@@ -76,6 +77,7 @@ io.on('connection', async (socket) => {
       const user1 = new User({ name: data.user });
       await user1.save();
        userID=user1._id;
+       aval=user1;
 
 
       console.log('users save', user1._id);

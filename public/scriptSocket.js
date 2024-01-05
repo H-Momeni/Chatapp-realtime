@@ -17,7 +17,7 @@ socket.on('previous messages', (previousMessages) => {
     const messages = document.getElementById('messages');
     previousMessages.forEach((msg) => {
         const li = document.createElement('li');
-        li.textContent = `${msg.user}: ${msg.text}`;
+        li.textContent = `${msg.info.name}: ${msg.text}`;
         messages.appendChild(li);
     });
 });
