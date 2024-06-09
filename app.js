@@ -1,3 +1,7 @@
+/*
+run-> node app.js
+http://localhost:3000
+*/
 const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
@@ -53,12 +57,6 @@ io.on('connection', async (socket) => {
 
       await message.save();
       console.log('Message saved to the database');
-
-
-      /* const user1=new User({name:data.user});
-       await user1.save();
-       console.log('user save');*/
-
 
       // Broadcast the message to all connected clients
       io.emit('chat message', data);
